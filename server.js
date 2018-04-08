@@ -1,5 +1,6 @@
 const express = require('express');
 const hbs = require('hbs');
+const fs = require('fs');
 
 var app = express();
 // dynamic templates
@@ -9,7 +10,33 @@ hbs.registerPartials(__dirname + '/views/partials');
 Using hbs as the
 default view engine requires just one line of code in your app setup
 */
+// You can use any engine for example : html , pug , hbs and more !
 app.set('view engine' , 'hbs');
+
+
+// Express Middleware
+app.use((req , res , next) => {
+    /* 
+    next params exist because you can tell express when your middleware function is done
+    */
+    var now = new Date().toString();
+    var log = `${now} : ${req.method} ${req.url}`;
+
+    console.log(log);
+    // last arguments for latest node version issues
+    // to past your log activating the server
+    fs.appendFile('server.log' , log + '\n' , (err) => {
+        if(err){
+            console.log("Unable to append server.log");
+        }
+    });
+    next();
+});
+
+// maintenance site
+// app.use((req , res , next) => {
+//     res.render('maintenance.hbs');
+// });
 
 // takes absolute path on your local static files
 // but it can be tricky because project moves around
