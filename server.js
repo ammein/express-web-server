@@ -23,7 +23,7 @@ app.use((req , res , next) => {
     var now = new Date().toString();
     var log = `${now} : ${req.method} ${req.url}`;
 
-    console.log(log);
+    // console.log(log);
     // last arguments for latest node version issues
     // to past your log activating the server
     fs.appendFile('server.log' , log + '\n' , (err) => {
@@ -53,7 +53,7 @@ hbs.registerHelper('getCurrentYear' , () => {
 
 hbs.registerHelper('screamIt' , (text) => {
     return text.toUpperCase();
-})
+});
 
 // To do http route handler
 app.get('/', (req, res) => {
@@ -73,6 +73,12 @@ app.get('/about' , (req , res) => {
     });
 });
 
+
+app.get('/projects' , (req , res) => {
+    res.render('projects.hbs',{
+        author : 'Amin Shazrin'
+    });
+});
 
 // bad request - send back JSON with errorMessage property
 app.get('/bad' , (req , res) => {
