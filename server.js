@@ -2,6 +2,8 @@ const express = require('express');
 const hbs = require('hbs');
 
 var app = express();
+// dynamic templates
+hbs.registerPartials(__dirname + '/views/partials');
 
 /* 
 Using hbs as the
@@ -15,19 +17,21 @@ app.set('view engine' , 'hbs');
 // LOAD STATIC FILES
 app.use(express.static(__dirname + '/public'));
 
+// Takes first argument of the function to run on rendering like this {{ getCurrentYear }}
+// Second argument is the callback/function that you do it for yourself.
+hbs.registerHelper('getCurrentYear' , () => {
+    return new Date().getFullYear();
+});
+
+hbs.registerHelper('screamIt' , (text) => {
+    return text.toUpperCase();
+})
+
 // To do http route handler
 app.get('/', (req, res) => {
-    // res.send({
-    //     name : 'Andrew',
-    //     likes : [
-    //         'biking',
-    //         'Cities'
-    //     ]
-    // })
     res.render('home.hbs',{
-        welcome : 'Amin Sharin',
-        currentYear : new Date().getFullYear(),
-        titlePage : 'Home'
+        author : 'Amin Sharin',
+        titlePage : 'Home',
     });
 });
 
@@ -36,8 +40,8 @@ app.get('/', (req, res) => {
 app.get('/about' , (req , res) => {
     // specify second argument (object) for second render inject data
     res.render('about.hbs' , {
+        author : 'Amin Shazrin',
         pageTitle : 'About Page',
-        currentYear : new Date().getFullYear()
     });
 });
 

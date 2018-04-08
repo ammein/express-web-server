@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Help Page</title>
+    <title>Web Server | {{ pageTitle }}</title>
 </head>
 
 <body>
-    <h1>{{ pageTitle }}</h1>
+    {{> header }}
     <p>Some text here</p>
 
-    <footer>
-        <p>Copyright {{ currentYear }}</p>
-    </footer>
+    {{> footer }}
 </body>
 
 </html>
