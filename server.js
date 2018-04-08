@@ -1,7 +1,7 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
-
+// Initialize express
 var app = express();
 // dynamic templates
 hbs.registerPartials(__dirname + '/views/partials');
